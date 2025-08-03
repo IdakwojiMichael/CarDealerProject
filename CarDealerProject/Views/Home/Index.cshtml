@@ -1,0 +1,32 @@
+﻿@model List<CarDealerProject.Data.Models.Car>
+
+@{
+    ViewData["Title"] = "Welcome to Car Dealer";
+}
+
+<h2>Available Cars</h2>
+
+@if (!Model.Any())
+{
+    <p>No cars available at the moment.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var car in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@car.ImageUrl" class="card-img-top" alt="Car image">
+                    <div class="card-body">
+                        <h5 class="card-title">@car.Make @car.Model</h5>
+                        <p class="card-text">
+                            Year: @car.Year <br />
+                            Price: ₦@car.Price
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

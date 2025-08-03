@@ -1,0 +1,15 @@
+﻿@model CarDealerProject.Data.Models.Car
+
+@{
+    ViewData["Title"] = "Car Details";
+}
+
+<h2>@Model.Model</h2>
+
+<div>
+    <p><strong>Year:</strong> @Model.Year</p>
+</div>
+
+<a asp-action="Submit" asp-controller="Inquiry" asp-route-carId="@Model.Id" class="btn btn-primary">
+    Inquire About This Car
+</a>

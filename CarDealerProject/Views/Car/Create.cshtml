@@ -1,0 +1,52 @@
+﻿@model CarDealerProject.Data.Models.Car
+
+@{
+    ViewData["Title"] = "Upload Car";
+}
+
+<h2>Upload New Car</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div style="color: green; margin-bottom: 10px;">
+        @TempData["Success"]
+    </div>
+}
+
+<form asp-action="Create" asp-controller="Car" method="post" enctype="multipart/form-data">
+    <div>
+        <label asp-for="Make"></label>
+        <input asp-for="Make" />
+        <span asp-validation-for="Make" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Model"></label>
+        <input asp-for="Model" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Year"></label>
+        <input asp-for="Year" type="number" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Upload Car Image</label>
+        <input type="file" name="imageFile" accept="image/*" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Save Car</button>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

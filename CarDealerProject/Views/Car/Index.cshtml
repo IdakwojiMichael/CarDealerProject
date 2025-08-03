@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CarDealerProject.Data.Models.Car>
+
+@{
+    ViewData["Title"] = "Available Cars";
+}
+
+<h2>Available Cars</h2>
+
+@foreach (var car in Model)
+{
+    <div>
+        <h4>@car.Model (@car.Year)</h4>
+        <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-info">View Details</a>
+    </div>
+    <hr />
+}
