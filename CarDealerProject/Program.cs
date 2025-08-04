@@ -1,16 +1,18 @@
 using CarDealerProject.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+//  Load appsettings.Production.json if in Production
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
 
-// Add session support
+// Add services to the container
+builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
-// Add DbContext
+// Configure SQL Server with connection string
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CarDealerProjectConnectionString")));
 
@@ -18,12 +20,10 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseRouting();
-
-app.UseSession(); // Enable session before authorization
+app.UseSession(); // Enable session
 
 app.MapControllerRoute(
     name: "default",
-   pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
